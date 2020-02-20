@@ -117,3 +117,6 @@ target/
 output/
 python_boilerplate/
 
+# dataset path files
+.dataset_data_path.txt
+

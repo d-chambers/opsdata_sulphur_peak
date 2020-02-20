@@ -63,7 +63,7 @@ class Sulphur_peak(obsplus.DataSet):
         cat_df = obsplus.events_to_df(self.event_path)
         # Create bulk requests for each event and put into a wave bank.
         wbank = obsplus.WaveBank(self.waveform_path)
-        for event_series in cat_df.iterrows():
+        for _, event_series in cat_df.iterrows():
             event_df = inv_df[NSLC]
             time = obsplus.utils.to_utc(event_series['time'])
             event_df['starttime'] = time - time_before
@@ -74,7 +74,8 @@ class Sulphur_peak(obsplus.DataSet):
 
     def download_stations(self):
         """ download station data and store them in self.station_path """
-        station_path = Path(self.station_path).mkdir(exist_ok=True, parents=True)
+        station_path = Path(self.station_path)
+        station_path.mkdir(exist_ok=True, parents=True)
         client = Client("IRIS")
 
         station_params = dict(
